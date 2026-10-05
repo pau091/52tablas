@@ -1,0 +1,16 @@
+package com.tarea.application.patientcontact.command;
+
+import com.tarea.domain.contact.model.valueobject.ContactId;
+import com.tarea.domain.patient.model.valueobject.PatientId;
+import com.tarea.domain.patientcontact.model.valueobject.PatientContactId;
+import com.tarea.domain.relationshiptype.model.valueobject.RelationshipTypeId;
+
+public record UpdatePatientContactCommand(
+        PatientContactId id,
+        ContactId contactId,
+        PatientId patientId,
+        Boolean isPrimaryContact,
+        Boolean isEmergencyContact,
+        RelationshipTypeId relationshipTypeId
+) {
+}

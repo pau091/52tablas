@@ -1,0 +1,21 @@
+package com.tarea.application.encounter.usecase;
+
+import com.tarea.application.encounter.dto.EncounterResponse;
+import com.tarea.domain.encounter.port.repository.EncounterRepository;
+
+import java.util.List;
+
+public class ListEncounterUseCase {
+
+    private final EncounterRepository encounterRepository;
+
+    public ListEncounterUseCase(EncounterRepository encounterRepository) {
+        this.encounterRepository = encounterRepository;
+    }
+
+    public List<EncounterResponse> execute() {
+        return encounterRepository.findAll().stream()
+                .map(EncounterResponse::fromDomain)
+                .toList();
+    }
+}

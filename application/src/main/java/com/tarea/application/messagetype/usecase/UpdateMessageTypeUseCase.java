@@ -1,0 +1,23 @@
+package com.tarea.application.messagetype.usecase;
+
+import com.tarea.application.messagetype.command.UpdateMessageTypeCommand;
+import com.tarea.application.messagetype.dto.MessageTypeResponse;
+import com.tarea.application.messagetype.exception.MessageTypeNotFoundApplicationException;
+import com.tarea.domain.messagetype.port.repository.MessageTypeRepository;
+
+public class UpdateMessageTypeUseCase {
+
+    private final MessageTypeRepository messageTypeRepository;
+
+    public UpdateMessageTypeUseCase(MessageTypeRepository messageTypeRepository) {
+        this.messageTypeRepository = messageTypeRepository;
+    }
+
+    public MessageTypeResponse execute(UpdateMessageTypeCommand command) {
+        var messageType = messageTypeRepository.findById(command.id())
+                .orElseThrow(() -> new MessageTypeNotFoundApplicationException(command.id().value().toString()));
+        messageType.update(command.nameType());
+        var updated = messageTypeRepository.save(messageType);
+        return MessageTypeResponse.fromDomain(updated);
+    }
+}
